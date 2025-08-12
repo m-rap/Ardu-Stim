@@ -1546,25 +1546,6 @@
       1,0,1,0,1,0,1,0,1,0, // Teeth 31-35
       1,0,1,0,1,0,1,0,1,0, // Teeth 36-40
    };
-  
-  // const unsigned char Suzuki_Swift_K_Eng_Cam[] PROGMEM = 
-  // { // 22 teeth, every number represent 360/44 degree
-  //   1,1,1,0,0,0,0,0,0,0, // Teeth 0-4
-  //   0,0,0,0,0,0,0,1,1,0, // Teeth 5-9
-  //   0,0,0,0,0,0,0,0,0,0, // Teeth 10-14
-  //   0,0,1,1,0,0,0,0,0,0, // Teeth 15-19
-  //   0,0,0,0, // Teeth 20-21
-  // };
-  
-  // const unsigned char Suzuki_Swift_K_Eng_Crank[] PROGMEM = 
-  // { // 15-2 and 21-2 teeth (13 teeth, 2 missing teeth, 19 teeth, 2 missing teeth), every number represent 5 degree
-  //   1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 0-5
-  //   1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 6-11
-  //   1,0,0,0,0,0,1,0,1,0,1,0, // Teeth 12-17
-  //   1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 18-23
-  //   1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 24-29
-  //   1,0,1,0,1,0,1,0,0,0,0,0, // Teeth 30-35
-  // };
 
   const unsigned char Suzuki_Swift_K_Eng[] PROGMEM = 
   { // 36 teeth crank, every number represent 5 degree
