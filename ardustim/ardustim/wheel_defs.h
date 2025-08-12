@@ -137,6 +137,7 @@
    VIPER_96_02, // Dodge Viper 1996-2002 wheel pattern
    THIRTY_SIX_MINUS_TWO_WITH_ONE_CAM, // 36-2 with  1 tooth cam - 2jz-gte VVTI crank pulley + non-vvti cam
    GM_40_OSS, // GM 40 tooth wheel no skips for transmission OSS simulation
+   SUZUKI_SWIFT_K_ENG,
 
    MAX_WHEELS,
  }WheelType;
@@ -206,6 +207,7 @@
  const char VIPER9602_friendly_name[] PROGMEM = "Dodge Viper V10 1996-2002";
  const char thirty_six_minus_two_with_second_trigger_friendly_name[] PROGMEM = "36-2 with 1 tooth cam";
  const char GM_40_Tooth_Trans_OSS_friendly_name[] PROGMEM = "GM 40 tooth OSS wheel for Transmissions";
+ const char Suzuki_Swift_K_Eng_friendly_name[] PROGMEM = "Suzuki Swift K Engine";
 
  /* Very simple 50% duty cycle */
  const unsigned char dizzy_four_cylinder[] PROGMEM = 
@@ -1544,5 +1546,56 @@
       1,0,1,0,1,0,1,0,1,0, // Teeth 31-35
       1,0,1,0,1,0,1,0,1,0, // Teeth 36-40
    };
+  
+  // const unsigned char Suzuki_Swift_K_Eng_Cam[] PROGMEM = 
+  // { // 22 teeth, every number represent 360/44 degree
+  //   1,1,1,0,0,0,0,0,0,0, // Teeth 0-4
+  //   0,0,0,0,0,0,0,1,1,0, // Teeth 5-9
+  //   0,0,0,0,0,0,0,0,0,0, // Teeth 10-14
+  //   0,0,1,1,0,0,0,0,0,0, // Teeth 15-19
+  //   0,0,0,0, // Teeth 20-21
+  // };
+  
+  // const unsigned char Suzuki_Swift_K_Eng_Crank[] PROGMEM = 
+  // { // 15-2 and 21-2 teeth (13 teeth, 2 missing teeth, 19 teeth, 2 missing teeth), every number represent 5 degree
+  //   1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 0-5
+  //   1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 6-11
+  //   1,0,0,0,0,0,1,0,1,0,1,0, // Teeth 12-17
+  //   1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 18-23
+  //   1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 24-29
+  //   1,0,1,0,1,0,1,0,0,0,0,0, // Teeth 30-35
+  // };
+
+  const unsigned char Suzuki_Swift_K_Eng[] PROGMEM = 
+  { // 36 teeth crank, every number represent 5 degree
+
+    //// 0-360 crank only for reference
+    //0                   6                   
+    //1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 0-9
+    //1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 10-19
+    //1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 20-29
+    //1,0,1,0,1,0,1,0,1,0,0,0,                 // Teeth 30-35
+
+    //// 0-360 offsetted crank only for reference
+    //0                   6                   
+    //1,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0, // Teeth 0-9
+    //1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 10-19
+    //1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0, // Teeth 20-29
+    //1,0,1,0,1,0,1,0,1,0,1,0,                 // Teeth 30-35
+
+    //// 0-360 offsetted crank
+  //0                   6                   
+    3,2,3,2,3,2,3,2,0,0,3,2,3,2,1,0,1,0,1,0, // Teeth 0-9
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 10-19
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,3,2,2,2,3,2, // Teeth 20-29
+    1,0,1,0,1,0,1,0,1,0,1,0,                 // Teeth 30-35
+
+    //// 360-720 offsetted crank
+  //0                   6                   
+    1,0,1,0,1,0,1,0,0,0,1,0,1,0,3,2,3,2,3,2, // Teeth 0-9
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 10-19
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0, // Teeth 20-29
+    1,0,1,0,1,0,1,0,1,0,1,0,                 // Teeth 30-35
+  };
 
 #endif
