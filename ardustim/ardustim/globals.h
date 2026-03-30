@@ -21,7 +21,29 @@
 #ifndef __GLOBALS_H__
 #define __GLOBALS_H__
 
+#include <stdint.h>
+#ifdef __linux__
+#include <string.h>
+typedef uint8_t byte;
+uint16_t word(byte a, byte b);
+#define strcpy_P strcpy
+class DummySerial {
+public:
+  void begin(int) {}
+  byte read() { return 0; }
+  void write(byte) {}
+  int available() { return 0; }
+  void println(int) {}
+  void println(const char*) {}
+  void print(int) {}
+  void print(const char*) {}
+};
+byte pgm_read_byte(const byte*);
+
+extern DummySerial Serial;
+#else
 #include "Arduino.h"
+#endif
 #include "wheel_defs.h"
 
 #define VERSION 2

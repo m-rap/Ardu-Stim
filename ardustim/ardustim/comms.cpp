@@ -25,9 +25,15 @@
 #include "comms.h"
 #include "storage.h"
 #include "wheel_defs.h"
-#include <avr/pgmspace.h>
 #include <math.h>
+#ifdef __linux__
+DummySerial Serial;
+byte pgm_read_byte(const byte*) { return 0; }
+uint16_t word(byte a, byte b) { return 0; }
+#else
+#include <avr/pgmspace.h>
 #include <util/delay.h>
+#endif
 
 /* External Globla Variables */
 extern wheels Wheels[];
@@ -165,11 +171,15 @@ void commandParser()
  * Figures out the amount of free RAM remaining nad returns it to the caller
  * \return amount of free memory
  */
+#ifdef __linux__
+uint16_t freeRam () { return 0; }
+#else
 uint16_t freeRam () {
   extern int __heap_start, *__brkval; 
   int v; 
   return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval); 
 }
+#endif
 
 /* SerialUI Callbacks */
 //! Inverts the polarity of the primary output signal

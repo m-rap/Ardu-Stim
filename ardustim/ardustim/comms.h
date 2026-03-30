@@ -21,7 +21,9 @@
 #ifndef __COMMS_H__
 #define __COMMS_H__
  
+#ifndef __linux__
 #include <Arduino.h>
+#endif
 /* Structures */
 
 /* Prototypes */

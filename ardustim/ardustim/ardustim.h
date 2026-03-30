@@ -22,7 +22,9 @@
 #define __ARDUSTIM_H__
 
 #include <stdint.h>
+#ifndef __linux__
 #include <Arduino.h>
+#endif
 
 /* Prototypes */
 void reset_new_OCR1A(uint32_t);

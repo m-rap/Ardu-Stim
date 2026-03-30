@@ -21,7 +21,11 @@
  #ifndef __WHEEL_DEFS_H__
  #define __WHEEL_DEFS_H__
  
+ #ifdef __linux__
+ #define PROGMEM
+ #else
  #include <avr/pgmspace.h>
+ #endif
  
  /* Wheel patterns! 
   *
