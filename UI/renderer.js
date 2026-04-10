@@ -4,6 +4,8 @@ const Readline = require('@serialport/parser-readline')
 const ByteLengthParser = require('@serialport/parser-byte-length')
 const InterByteTimeoutParser = require('@serialport/parser-inter-byte-timeout')
 const {ipcRenderer} = require("electron")
+const net = require("net");
+const { PassThrough } = require('stream');
 var port = new serialport('/dev/tty-usbserial1', { autoOpen: false })
 
 const CONFIG_SIZE = 18;
@@ -14,6 +16,7 @@ var isConnected=false;
 var currentRPM = 0;
 var rpmRequestPending = false;
 var initComplete = false;
+var enableTcp = true;
 
 function refreshSerialPorts()
 {
@@ -79,15 +82,51 @@ function refreshSerialPorts()
         }
         else { button.disabled = true; }
       }
+      if (enableTcp) {
+        var newOption = document.createElement('option');
+        newOption.value = "tcp";
+        newOption.innerHTML = "tcp";
+        select.add(newOption);
+        button.disabled = false;
+      }
     })
 }
 
+function onSelectPort()
+{
+  console.log("enter onSelectPort");
+  var e = document.getElementById('portsSelect');
+
+  var tcpForm = document.getElementById("tcpForm");
+
+  if (e.options[e.selectedIndex].value == "tcp")
+  {
+    tcpForm.style = "display: block;";
+  }
+  else
+  {
+    tcpForm.style = "display: none;";
+  }
+}
 
 function openSerialPort()
 {
     var e = document.getElementById('portsSelect');
     
     console.log("Opening serial port: ", e.options[e.selectedIndex].value);
+    if (e.options[e.selectedIndex].value == "tcp")
+    {
+      var tcpIp = document.getElementById("tcpIp");
+      var tcpPort = document.getElementById("tcpPort");
+      console.log("tcp ip " + tcpIp.value + " port " + tcpPort.value);
+      port = net.createConnection({ port: tcpPort.value, host: tcpIp.value }, () => {
+        console.log('TCP Connected');
+        modalLoading.init(true);
+        initComplete = false;
+        onSerialConnect();
+      });
+      return;
+    }
     port = new serialport(e.options[e.selectedIndex].value, { baudRate: 115200 }, function (err) {
         if (err) {
           window.alert(`Error while opening serial port: ${err.message}`);

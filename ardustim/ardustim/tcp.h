@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 
 class CircularArray {
 private:
@@ -28,14 +29,16 @@ public:
 };
 
 class Tcp {
-private:
+protected:
   int sockfd;
   sockaddr_in serv_addr;
 public:
+  Tcp();
+  virtual ~Tcp();
   int listen(const char* ip, int port);
   int accept(Tcp& acceptor, char* clientIp, int& clientPort);
   int connect(const char* ip, int port);
-  int close();
+  virtual int close();
   uint8_t read();
   int readBytes(uint8_t* buff, int len);
   void write(uint8_t b);
@@ -49,20 +52,20 @@ public:
 };
 
 class BufferedTcp : public Tcp {
-private:
+protected:
   CircularArray* buff;
+  bool running;
+  pthread_t t;
+  pthread_mutex_t m;
+  pthread_mutexattr_t mAttr;
+  static void* readLoop(void* param);
 public:
-  BufferedTcp() {
-    buff = new CircularArray(64);
-  }
-  ~BufferedTcp() {
-    delete buff;
-  }
+  BufferedTcp();
+  virtual ~BufferedTcp();
+  void start();
   virtual int available();
   uint8_t read();
   int readBytes(uint8_t* buff, int len);
-  void write(uint8_t b);
-  int writeBytes(uint8_t* buff, int len);
 };
 
 #endif

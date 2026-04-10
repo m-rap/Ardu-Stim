@@ -4,7 +4,7 @@
 
 // Initialize the circular array
 CircularArray::CircularArray(int capacity) {
-    capacity = capacity;
+    this->capacity = capacity;
     buffer = new uint8_t[capacity];
     head = 0;
     tail = 0;
@@ -32,11 +32,11 @@ int CircularArray::pushArray(uint8_t* src, int count) {
 
     if (count <= space_to_end) {
         // Single copy
-        memcpy(buffer + tail, src, count * sizeof(int));
+        memcpy(buffer + tail, src, count * sizeof(uint8_t));
     } else {
         // Wrap-around copy
-        memcpy(buffer + tail, src, space_to_end * sizeof(int));
-        memcpy(buffer, src + space_to_end, (count - space_to_end) * sizeof(int));
+        memcpy(buffer + tail, src, space_to_end * sizeof(uint8_t));
+        memcpy(buffer, src + space_to_end, (count - space_to_end) * sizeof(uint8_t));
     }
 
     tail = (tail + count) % capacity;
@@ -60,17 +60,25 @@ int CircularArray::popArray(uint8_t* dest, int count) {
 
     if (count <= space_to_end) {
         // Single copy
-        memcpy(dest, buffer + head, count * sizeof(int));
+        memcpy(dest, buffer + head, count * sizeof(uint8_t));
     } else {
         // Wrap-around copy
-        memcpy(dest, buffer + head, space_to_end * sizeof(int));
-        memcpy(dest + space_to_end, buffer, (count - space_to_end) * sizeof(int));
+        memcpy(dest, buffer + head, space_to_end * sizeof(uint8_t));
+        memcpy(dest + space_to_end, buffer, (count - space_to_end) * sizeof(uint8_t));
     }
 
     head = (head + count) % capacity;
     size -= count;
 
     return count;
+}
+
+Tcp::Tcp() {
+  sockfd = -1;
+}
+
+Tcp::~Tcp() {
+  close();
 }
 
 int Tcp::listen(const char* ip, int port) {
@@ -90,7 +98,9 @@ int Tcp::listen(const char* ip, int port) {
   err = bind(sockfd, (sockaddr *) &serv_addr, sizeof(serv_addr));
   if (err < 0)
   {
-    ::close(sockfd);
+    int tmpsockfd = sockfd;
+    sockfd = -1;
+    ::close(tmpsockfd);
     return err;
   }
 
@@ -151,8 +161,13 @@ int Tcp::connect(const char* ip, int port) {
 }
 
 int Tcp::close() {
-  shutdown(sockfd, SHUT_RDWR);
-  ::close(sockfd);
+  if (sockfd == -1) {
+    return 0;
+  }
+  int tmpsockfd = sockfd;
+  sockfd = -1;
+  shutdown(tmpsockfd, SHUT_RDWR);
+  return ::close(tmpsockfd);
 }
 
 uint8_t Tcp::read() {
@@ -179,15 +194,15 @@ int Tcp::available() {
 
 void Tcp::println(int n) {
   uint8_t buff[128];
-  int nstr = snprintf((char*)buff, 127, "%d\n", n);
+  int nstr = snprintf((char*)buff, 127, "%d\r\n", n);
   writeBytes(buff, nstr);
 }
 
 void Tcp::println(const char* s) {
   uint8_t buff[4096];
   strcpy((char*)buff, s);
-  strcat((char*)buff, "\n");
-  writeBytes(buff, strlen(s)+1);
+  strcat((char*)buff, "\r\n");
+  writeBytes(buff, strlen(s)+2);
 }
 void Tcp::print(int n) {
   uint8_t buff[128];
@@ -195,27 +210,70 @@ void Tcp::print(int n) {
   writeBytes(buff, nstr);
 }
 void Tcp::print(const char* s) {
-  writeBytes((uint8_t*)s, strlen(s)+1);
+  writeBytes((uint8_t*)s, strlen(s));
+}
+
+void* BufferedTcp::readLoop(void* param) {
+  BufferedTcp* that = (BufferedTcp*)param;
+  while (that->running) {
+    uint8_t tmpbuff[4096];
+    int nread = recv(that->sockfd, tmpbuff, 4096, 0);
+    for (int tmpidx = 0; that->running && tmpidx < nread; ) {
+      pthread_mutex_lock(&that->m);
+      int npush = that->buff->pushArray(&tmpbuff[tmpidx], nread - tmpidx);
+      pthread_mutex_unlock(&that->m);
+      tmpidx += npush;
+      usleep(1000);
+    }
+  }
+  return 0;
+}
+
+BufferedTcp::BufferedTcp() {
+  pthread_mutexattr_init(&mAttr);
+  pthread_mutexattr_settype(&mAttr, PTHREAD_MUTEX_RECURSIVE);
+	pthread_mutex_init(&m, &mAttr);
+  buff = new CircularArray(64);
+  running = false;
+}
+
+BufferedTcp::~BufferedTcp() {
+  int tmprunning = running;
+  running = false;
+  close();
+  if (tmprunning) {
+    pthread_join(t, 0);
+  }
+  delete buff;
+  pthread_mutexattr_destroy(&mAttr);
+  pthread_mutex_destroy(&m);
+}
+
+void BufferedTcp::start() {
+  if (running) {
+    return;
+  }
+  running = true;
+  pthread_create(&t, 0, readLoop, this);
 }
 
 int BufferedTcp::available() {
-  if (buff->getSize() > 0) {
-    return buff->getSize();
-  }
-  uint8_t tmpbuff[64];
-  int nread = readBytes(tmpbuff, buff->getCapacity());
-  buff->pushArray(tmpbuff, nread);
   return buff->getSize();
 }
 
 uint8_t BufferedTcp::read() {
   uint8_t b;
+  pthread_mutex_lock(&m);
   buff->popArray(&b, 1);
+  pthread_mutex_unlock(&m);
   return b;
 }
 
 int BufferedTcp::readBytes(uint8_t* tmpbuff, int len) {
-  return buff->popArray(tmpbuff, len);
+  pthread_mutex_lock(&m);
+  int n = buff->popArray(tmpbuff, len);
+  pthread_mutex_unlock(&m);
+  return n;
 }
 
 

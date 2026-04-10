@@ -28,14 +28,60 @@
 // #include <avr/pgmspace.h>
 // #include <EEPROM.h>
 
+#include <stdio.h>
 #include <sys/time.h>
 #include <unistd.h>
 
-DummySerial Serial;
-byte pgm_read_byte(const byte*) { return 0; }
+byte pgm_read_byte(const byte* b) { return *b; }
 uint16_t word(byte a, byte b) { return 0; }
-void saveConfig() {}
-void loadConfig() {}
+
+void saveConfig() {
+  FILE* f = fopen("config.bin", "wb");
+  if (f == NULL) {
+    return;
+  }
+  fwrite(&config, sizeof(config), 1, f);
+  fclose(f);
+}
+
+void loadConfig() {
+  FILE* f = fopen("config.bin", "rb");
+  if (f == NULL) {
+    config.version = VERSION;
+    
+    config.fixed_rpm = 100;
+    config.sweep_interval = 200;
+    config.sweep_high_rpm = 2000;
+    config.sweep_low_rpm = 1000;
+    config.wheel = 5;
+    config.mode = FIXED_RPM;
+    currentStatus.rpm = 4000;
+    currentStatus.base_rpm = 4000;
+    config.compressionType = COMPRESSION_TYPE_4CYL_4STROKE;
+    config.compressionRPM = 400;
+    config.compressionOffset = 0;
+
+    saveConfig();
+    return;
+  }
+
+  fread(&config, sizeof(config), 1, f);
+  fclose(f);
+  
+  config.version = VERSION;
+
+  if(config.sweep_low_rpm >= config.sweep_high_rpm) { config.sweep_low_rpm = config.sweep_high_rpm - 100; }
+  //Error checking
+  if(config.wheel >= MAX_WHEELS) { config.wheel = 5; }
+  if(config.mode >= MAX_MODES) { config.mode = FIXED_RPM; }
+  if(currentStatus.rpm > 15000) { currentStatus.rpm = 4000; }
+  if(currentStatus.base_rpm > 15000) { currentStatus.base_rpm = 4000; }
+  if(config.compressionType > COMPRESSION_TYPE_8CYL_4STROKE) { config.compressionType = COMPRESSION_TYPE_4CYL_4STROKE; }
+  if(config.compressionRPM > 1000) { config.compressionRPM = 400; }
+  if(config.compressionOffset > 359) { config.compressionOffset = 0; }
+  
+  saveConfig();
+}
 
 uint32_t startMicros;
 

@@ -33,7 +33,11 @@
 						<header><h1>Select Serial Port</h1></header>
 						Available Ports:<br />
 						<span id="serialDetectError"></span>
-						<select name="ports" class="select" id="portsSelect" size="10" width="25"></select>
+						<select name="ports" class="select" id="portsSelect" size="10" width="25" onchange="onSelectPort();"></select>
+						<div id="tcpForm" style="display: none;">
+							<input type="text" id="tcpIp" value="127.0.0.1" />
+							<input type="text" id="tcpPort" value="4000" />
+						</div>
 						<ul class="actions">
 							<li><input type='button' value="Refresh" onclick="refreshSerialPorts();" /></li>
 							<li><input type='button' value="Connect" id="btnConnect" onclick="openSerialPort();" /></li>

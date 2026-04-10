@@ -27,9 +27,7 @@
 #include "wheel_defs.h"
 #include <math.h>
 #ifdef __linux__
-#include "tcp.h"
 BufferedTcp tcpListener, tcpAcceptor;
-#define Serial tcpAcceptor
 #else
 #include <avr/pgmspace.h>
 #include <util/delay.h>
@@ -61,6 +59,7 @@ void serialSetup()
 
 #else
 int tcpSetup() {
+  printf("listening to 4000\n");
   int res = tcpListener.listen("0.0.0.0", 4000);
   if (res != 0) {
     return res;
@@ -68,6 +67,9 @@ int tcpSetup() {
   char clientIp[32];
   int clientPort;
   res = tcpListener.accept(tcpAcceptor, clientIp, clientPort);
+  printf("accepted client\n");
+  tcpAcceptor.start();
+  cmdPending = false;
   return res;
 }
 #endif

@@ -41,6 +41,9 @@ void reverse_wheel_direction_cb();
 /* General functions */
 void serialSetup();
 #ifdef __linux__
+#include "tcp.h"
+extern BufferedTcp tcpListener, tcpAcceptor;
+#define Serial tcpAcceptor
 int tcpSetup();
 #endif
 void display_new_wheel();

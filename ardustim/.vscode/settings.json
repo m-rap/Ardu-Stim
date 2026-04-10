@@ -1,3 +1,11 @@
 {
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "files.associations": {
+        "cstdio": "cpp",
+        "atomic": "cpp",
+        "cstddef": "cpp",
+        "functional": "cpp",
+        "memory_resource": "cpp",
+        "typeinfo": "cpp"
+    }
 }
