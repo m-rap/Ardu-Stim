@@ -40,6 +40,9 @@ void reverse_wheel_direction_cb();
 
 /* General functions */
 void serialSetup();
+#ifdef __linux__
+int tcpSetup();
+#endif
 void display_new_wheel();
 /* General functions */
 

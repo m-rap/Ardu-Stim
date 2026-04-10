@@ -27,9 +27,9 @@
 #include "wheel_defs.h"
 #include <math.h>
 #ifdef __linux__
-DummySerial Serial;
-byte pgm_read_byte(const byte*) { return 0; }
-uint16_t word(byte a, byte b) { return 0; }
+#include "tcp.h"
+BufferedTcp tcpListener, tcpAcceptor;
+#define Serial tcpAcceptor
 #else
 #include <avr/pgmspace.h>
 #include <util/delay.h>
@@ -46,6 +46,7 @@ extern volatile uint16_t new_OCR1A;
 bool cmdPending;
 byte currentCommand;
 
+#ifndef __linux__
 //! Initializes the serial port and sets up the Menu
 /*!
  * Sets up the serial port and menu for the serial user interface
@@ -57,6 +58,19 @@ void serialSetup()
   Serial.begin(115200);
   cmdPending = false;
 }
+
+#else
+int tcpSetup() {
+  int res = tcpListener.listen("0.0.0.0", 4000);
+  if (res != 0) {
+    return res;
+  }
+  char clientIp[32];
+  int clientPort;
+  res = tcpListener.accept(tcpAcceptor, clientIp, clientPort);
+  return res;
+}
+#endif
 
 void commandParser()
 {

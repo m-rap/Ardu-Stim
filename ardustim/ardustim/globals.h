@@ -39,6 +39,9 @@ public:
   void print(const char*) {}
 };
 byte pgm_read_byte(const byte*);
+void saveConfig();
+void setup();
+void loadConfig();
 
 extern DummySerial Serial;
 #else
