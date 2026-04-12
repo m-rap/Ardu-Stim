@@ -31,6 +31,7 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <signal.h>
 
 byte pgm_read_byte(const byte* b) { return *b; }
 uint16_t word(byte a, byte b) { return 0; }
@@ -193,14 +194,28 @@ wheels Wheels[MAX_WHEELS] = {
   { Suzuki_Swift_K_Eng_13_19_friendly_name, suzuki_swift_k_eng_13_19, 0.333, 144, 720 },
 };
 
+bool mainrunning = true;
+
+void handleSig(int sig) {
+  printf("caught signal %d\n", sig);
+  mainrunning = false;
+  printf("closing tcp from sig handler\n");
+  tcpAcceptor.close();
+  tcpListener.close();
+}
+
 /* Initialization */
 void setup() {
+  signal(SIGINT, handleSig);
   startMicros = microsofday();
   loadConfig();
 #ifndef __linux__
   serialSetup();
 #else
-  tcpSetup();
+  int res = tcpSetup();
+  if (res < 0) {
+    return;
+  }
 #endif
 
 //   cli(); // stop interrupts
@@ -541,8 +556,12 @@ void get_prescaler_bits(uint32_t *potential_oc_value, uint8_t *prescaler, uint8_
 
 int main(int argc, char** argv) {
   setup();
-  while (1) {
+  while (mainrunning) {
     loop();
     usleep(1);
   }
+
+  printf("closing tcp from main\n");
+  tcpAcceptor.close();
+  tcpListener.close();
 }

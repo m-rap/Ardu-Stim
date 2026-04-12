@@ -62,12 +62,17 @@ int tcpSetup() {
   printf("listening to 4000\n");
   int res = tcpListener.listen("0.0.0.0", 4000);
   if (res != 0) {
-    return res;
+    printf("error listen %d\n", res);
+    return -1;
   }
   char clientIp[32];
   int clientPort;
   res = tcpListener.accept(tcpAcceptor, clientIp, clientPort);
-  printf("accepted client\n");
+  if (res == -1) {
+    printf("error accept %d\n", res);
+    return -2;
+  }
+  printf("accepted client %d\n", res);
   tcpAcceptor.start();
   cmdPending = false;
   return res;
