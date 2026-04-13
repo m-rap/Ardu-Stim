@@ -137,6 +137,8 @@
    VIPER_96_02, // Dodge Viper 1996-2002 wheel pattern
    THIRTY_SIX_MINUS_TWO_WITH_ONE_CAM, // 36-2 with  1 tooth cam - 2jz-gte VVTI crank pulley + non-vvti cam
    GM_40_OSS, // GM 40 tooth wheel no skips for transmission OSS simulation
+   SUZUKI_SWIFT_K_ENG,
+   SUZUKI_SWIFT_K_ENG_13_19,
 
    MAX_WHEELS,
  }WheelType;
@@ -206,6 +208,8 @@
  const char VIPER9602_friendly_name[] PROGMEM = "Dodge Viper V10 1996-2002";
  const char thirty_six_minus_two_with_second_trigger_friendly_name[] PROGMEM = "36-2 with 1 tooth cam";
  const char GM_40_Tooth_Trans_OSS_friendly_name[] PROGMEM = "GM 40 tooth OSS wheel for Transmissions";
+ const char Suzuki_Swift_K_Eng_friendly_name[] PROGMEM = "Suzuki Swift K Engine";
+ const char Suzuki_Swift_K_Eng_13_19_friendly_name[] PROGMEM = "Suzuki Swift K Engine 13_19";
 
  /* Very simple 50% duty cycle */
  const unsigned char dizzy_four_cylinder[] PROGMEM = 
@@ -1544,5 +1548,78 @@
       1,0,1,0,1,0,1,0,1,0, // Teeth 31-35
       1,0,1,0,1,0,1,0,1,0, // Teeth 36-40
    };
+
+  const unsigned char suzuki_swift_k_eng[] PROGMEM = 
+  { 
+    // 36 teeth crank, every number represent 5 degree
+
+    //// 0-360 crank only for reference
+    //0                   5                   
+    //1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 0-9
+    //0,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 10-19
+    //1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 20-29
+    //1,0,1,0,1,0,1,0,0,0,0,0,                 // Teeth 30-35
+
+  // 0-360
+  //cam only
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,
+  //2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  //0,0,0,0,0,0,0,0,0,0,0,0
+  //0                   5                   
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 0-9
+    0,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,3,2, // Teeth 10-19
+    3,2,3,2,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 20-29
+    1,0,1,0,1,0,1,0,0,0,0,0,                 // Teeth 30-35
+
+  // 360-720
+  //cam only
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,
+  //0,0,0,0,2,2,2,2,0,0,0,0
+  //0                   5                   
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,3,2,3,2,3,2, // Teeth 0-9
+    0,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 10-19
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,3,2,3,2,3,2, // Teeth 20-29
+    1,0,1,0,3,2,3,2,0,0,0,0,                 // Teeth 30-35
+  };
+
+
+  const unsigned char suzuki_swift_k_eng_13_19[] PROGMEM = 
+  {
+    // 36 teeth crank, every number represent 5 degree
+
+    //// 0-360 crank only for reference
+    //0                   5                   
+    //1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 0-9
+    //1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0, // Teeth 10-19
+    //1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 20-29
+    //1,0,1,0,1,0,1,0,0,0,0,0,                 // Teeth 30-35
+
+  // 0-360
+  //cam only
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,
+  //2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  //0,0,0,0,0,0,0,0,0,0,0,0
+  //0                   5                   
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 0-9
+    1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,1,0,3,2, // Teeth 10-19
+    3,2,3,2,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0, // Teeth 20-29
+    1,0,1,0,1,0,1,0,0,0,0,0,                 // Teeth 30-35
+
+  // 360-720
+  //cam only
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  //0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,
+  //0,0,0,0,2,2,2,2,0,0,0,0
+  //0                   5                   
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,3,2,3,2,3,2, // Teeth 0-9
+    1,0,1,0,1,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0, // Teeth 10-19
+    1,0,1,0,1,0,1,0,1,0,1,0,1,0,3,2,3,2,3,2, // Teeth 20-29
+    1,0,1,0,3,2,3,2,0,0,0,0,                 // Teeth 30-35
+  };
 
 #endif
