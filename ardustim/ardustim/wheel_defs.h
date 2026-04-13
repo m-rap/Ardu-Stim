@@ -21,7 +21,11 @@
  #ifndef __WHEEL_DEFS_H__
  #define __WHEEL_DEFS_H__
  
+ #ifdef __linux__
+ #define PROGMEM
+ #else
  #include <avr/pgmspace.h>
+ #endif
  
  /* Wheel patterns! 
   *
@@ -141,6 +145,7 @@
    SUZUKI_SWIFT_K_ENG_13_19,
    TOYOTA_AVANZA,
    TOYOTA_VIOS,
+   HONDA_D15,
 
    MAX_WHEELS,
  }WheelType;
@@ -214,6 +219,7 @@
  const char Suzuki_Swift_K_Eng_13_19_friendly_name[] PROGMEM = "Suzuki Swift K Engine 13_19";
  const char Toyota_Avanza_friendly_name[] PROGMEM = "Toyota Avanza";
  const char Toyota_Vios_friendly_name[] PROGMEM = "Toyota Vios";
+ const char Honda_D15_friendly_name[] PROGMEM = "Honda D15A";
 
  /* Very simple 50% duty cycle */
  const unsigned char dizzy_four_cylinder[] PROGMEM = 
@@ -1651,5 +1657,24 @@
     0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 18 - 26
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
   };
+
+  // honda city type z D15A
+  const unsigned char honda_d15[] PROGMEM = {
+    3,3,3,3,2,1,1,1,1,0,3,2,1,1,0, 1,1,1,1,0,1,1,1,1,0,1,1,1,1,0, // deg 0 - 179
+    3,3,3,3,2,1,1,1,1,0,1,1,1,1,0, 1,1,1,1,0,1,1,1,1,0,1,1,1,1,0, // deg 180 - 359
+
+    3,3,3,3,2,1,1,1,1,0,1,0,1,1,0, 1,1,1,1,0,1,1,1,1,0,1,1,1,1,0, // deg 360 - 539
+    3,3,3,3,2,1,1,1,1,0,1,1,1,1,0, 1,1,1,1,0,1,1,1,1,0,1,1,1,1,0, // deg 540 - 719
+  };
+  //   1,1, 1,0, 1,1, 1,0, 1,1, 1,0, 1,1, 1,0, 1,1, // Teeth 0 - 8
+  //   1,0, 1,1, 1,0, 1,1, 1,0, 1,1, 1,0, 1,1, 1,0, // Teeth 9 - 17
+  //   1,1, 1,0, 1,1, 1,0, 1,1, 1,0, 1,1, 1,0, 1,1, // Teeth 18 - 26
+  //   1,0, 1,1, 1,0, 1,1, 1,0, 1,1, 1,0, 1,1, 1,0, // Teeth 27 - 35
+
+  //   0,0, 0,0, 1,0, 0,0, 0,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 8
+  //   1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 9 - 17
+  //   0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 18 - 26
+  //   1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
+  // };
 
 #endif
