@@ -192,6 +192,8 @@ wheels Wheels[MAX_WHEELS] = {
   { GM_40_Tooth_Trans_OSS_friendly_name, GM40toothOSS, 1.0, 80, 360 },
   { Suzuki_Swift_K_Eng_friendly_name, suzuki_swift_k_eng, 0.333, 144, 720 },
   { Suzuki_Swift_K_Eng_13_19_friendly_name, suzuki_swift_k_eng_13_19, 0.333, 144, 720 },
+  { Toyota_Avanza_friendly_name, toyota_avanza, 0.333, 144, 720 },
+  { Toyota_Vios_friendly_name, toyota_vios, 0.333, 144, 720 },
 };
 
 bool mainrunning = true;
