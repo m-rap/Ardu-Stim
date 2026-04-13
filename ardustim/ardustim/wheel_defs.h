@@ -143,8 +143,9 @@
    GM_40_OSS, // GM 40 tooth wheel no skips for transmission OSS simulation
    SUZUKI_SWIFT_K_ENG,
    SUZUKI_SWIFT_K_ENG_13_19,
-   TOYOTA_AVANZA,
-   TOYOTA_VIOS,
+   TOYOTA_3SZ_VE,
+   TOYOTA_1NZ_FE,
+   TOYOTA_2NR_FE,
    HONDA_D15,
 
    MAX_WHEELS,
@@ -217,8 +218,9 @@
  const char GM_40_Tooth_Trans_OSS_friendly_name[] PROGMEM = "GM 40 tooth OSS wheel for Transmissions";
  const char Suzuki_Swift_K_Eng_friendly_name[] PROGMEM = "Suzuki Swift K Engine";
  const char Suzuki_Swift_K_Eng_13_19_friendly_name[] PROGMEM = "Suzuki Swift K Engine 13_19";
- const char Toyota_Avanza_friendly_name[] PROGMEM = "Toyota Avanza";
- const char Toyota_Vios_friendly_name[] PROGMEM = "Toyota Vios";
+ const char Toyota_3SZ_VE_friendly_name[] PROGMEM = "Toyota 3SZ-FE";
+ const char Toyota_1NZ_FE_friendly_name[] PROGMEM = "Toyota 1NZ-FE";
+ const char Toyota_2NR_FE_friendly_name[] PROGMEM = "Toyota 2NR-FE";
  const char Honda_D15_friendly_name[] PROGMEM = "Honda D15A";
 
  /* Very simple 50% duty cycle */
@@ -1633,29 +1635,39 @@
   };
 
   // 1NZ-FE, yaris bakpao 1.5, vios 1.5
-  const unsigned char toyota_vios[] PROGMEM = {
-    0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 8
-    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 9 - 17
+  const unsigned char toyota_1NZ_FE[] PROGMEM = {
+    0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 7
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 8 - 17
     0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 18 - 26
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
 
-    0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 8
-    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 9 - 17
+    0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 7
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 8 - 17
     0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 18 - 26
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
   };
 
   // K3-VE, 3SZ-VE, avanza rwd 1.3 & 1.5, xenia rwd 1.3 & 1.5, granmax 1.3 & 1.5, luxio 1.5
-  const unsigned char toyota_avanza[] PROGMEM = {
-    0,0, 0,0, 1,0, 0,0, 0,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 8
-    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 9 - 17
+  const unsigned char toyota_3SZ_VE[] PROGMEM = {
+    0,0, 0,0, 1,0, 0,0, 0,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 7
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 8 - 17
     0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 18 - 26
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
 
-    0,0, 0,0, 1,0, 0,0, 0,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 8
-    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 9 - 17
+    0,0, 0,0, 1,0, 0,0, 0,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 7
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 8 - 17
     0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 18 - 26
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
+  };
+
+  const unsigned char toyota_2NR_FE[] PROGMEM = {
+    2,2, 2,2, 3,2, 3,2, 3,2, 3,2, 3,2, 3,2, 3,2, 1,0, 1,0, 1,0, // Teeth 0 - 11
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 12 - 23
+    3,2, 3,2, 3,2, 3,2, 3,2, 3,2, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 24 - 35
+
+    0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 0 - 11
+    3,2, 3,2, 3,2, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 12 - 23
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 24 - 35
   };
 
   // honda city type z D15A

@@ -124,8 +124,10 @@ wheels Wheels[MAX_WHEELS] = {
   { GM_40_Tooth_Trans_OSS_friendly_name, GM40toothOSS, 1.0, 80, 360 },
   { Suzuki_Swift_K_Eng_friendly_name, suzuki_swift_k_eng, 0.333, 144, 720 },
   { Suzuki_Swift_K_Eng_13_19_friendly_name, suzuki_swift_k_eng_13_19, 0.333, 144, 720 },
-  { Toyota_Avanza_friendly_name, toyota_avanza, 0.333, 144, 720 },
-  { Toyota_Vios_friendly_name, toyota_vios, 0.333, 144, 720 },
+  { Toyota_3SZ_VE_friendly_name, toyota_3SZ_VE, 0.333, 144, 720 },
+  { Toyota_1NZ_FE_friendly_name, toyota_1NZ_FE, 0.333, 144, 720 },
+  { Toyota_2NR_FE_friendly_name, toyota_2NR_FE, 0.333, 144, 720 },
+  { Honda_D15_friendly_name, honda_d15, 0.333, 120, 720 },
 };
 
 /* Initialization */
