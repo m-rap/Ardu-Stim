@@ -194,6 +194,7 @@ wheels Wheels[MAX_WHEELS] = {
   { Suzuki_Swift_K_Eng_13_19_friendly_name, suzuki_swift_k_eng_13_19, 0.333, 144, 720 },
   { Toyota_Avanza_friendly_name, toyota_avanza, 0.333, 144, 720 },
   { Toyota_Vios_friendly_name, toyota_vios, 0.333, 144, 720 },
+  { Honda_D15_friendly_name, honda_d15, 0.333, 120, 720 },
 };
 
 bool mainrunning = true;
