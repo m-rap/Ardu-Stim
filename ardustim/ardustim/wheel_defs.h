@@ -145,6 +145,7 @@
    SUZUKI_SWIFT_K_ENG_13_19,
    TOYOTA_3SZ_VE,
    TOYOTA_1NZ_FE,
+   TOYOTA_1TR_FE,
    TOYOTA_2NR_FE,
    HONDA_D15,
 
@@ -220,6 +221,7 @@
  const char Suzuki_Swift_K_Eng_13_19_friendly_name[] PROGMEM = "Suzuki Swift K Engine 13_19";
  const char Toyota_3SZ_VE_friendly_name[] PROGMEM = "Toyota 3SZ-FE";
  const char Toyota_1NZ_FE_friendly_name[] PROGMEM = "Toyota 1NZ-FE";
+ const char Toyota_1TR_FE_friendly_name[] PROGMEM = "Toyota 1TR-FE";
  const char Toyota_2NR_FE_friendly_name[] PROGMEM = "Toyota 2NR-FE";
  const char Honda_D15_friendly_name[] PROGMEM = "Honda D15A";
 
