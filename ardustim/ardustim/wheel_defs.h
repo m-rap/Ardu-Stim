@@ -145,8 +145,9 @@
    SUZUKI_SWIFT_K_ENG_13_19,
    TOYOTA_3SZ_VE,
    TOYOTA_1NZ_FE,
-   TOYOTA_1TR_FE,
    TOYOTA_2NR_FE,
+   TOYOTA_1TR_FE,
+   TOYOTA_2KD_FTV,
    HONDA_D15,
 
    MAX_WHEELS,
@@ -223,6 +224,7 @@
  const char Toyota_1NZ_FE_friendly_name[] PROGMEM = "Toyota 1NZ-FE";
  const char Toyota_1TR_FE_friendly_name[] PROGMEM = "Toyota 1TR-FE";
  const char Toyota_2NR_FE_friendly_name[] PROGMEM = "Toyota 2NR-FE";
+ const char Toyota_2KD_FTV_friendly_name[] PROGMEM = "Toyota 2KD-FTV";
  const char Honda_D15_friendly_name[] PROGMEM = "Honda D15A";
 
  /* Very simple 50% duty cycle */
@@ -1640,12 +1642,12 @@
   const unsigned char toyota_1NZ_FE[] PROGMEM = {
     0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 7
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 8 - 17
-    0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 18 - 26
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 18 - 26
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
 
     0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, // Teeth 0 - 7
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 8 - 17
-    0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 18 - 26
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 18 - 26
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
   };
 
@@ -1670,6 +1672,18 @@
     0,0, 0,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 0 - 11
     3,2, 3,2, 3,2, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 12 - 23
     1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 24 - 35
+  };
+
+  const unsigned char toyota_2KD_FTV[] PROGMEM = {
+    2,2, 2,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 0 - 7
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 8 - 17
+    3,2, 3,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 18 - 26
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 27 - 35
+
+    2,2, 2,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 0 - 7
+    1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 8 - 17
+    3,2, 3,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, 1,0, // Teeth 18 - 26
+    1,0, 1,0, 1,0, 1,0, 1,0, 3,2, 3,0, 1,0, 1,0, // Teeth 27 - 35
   };
 
   // honda city type z D15A
